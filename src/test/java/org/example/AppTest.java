@@ -1,6 +1,5 @@
 package org.example;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class AppTest
      */
     @Test
     public void justRun() throws IOException {
-        MyConnector myconnector = new MyConnector();
+        CSVSInkConnector myconnector = new CSVSInkConnector();
         Properties prop = new Properties();
         String propFileName = "config.properties";
 
@@ -26,7 +25,7 @@ public class AppTest
         prop.load(inputStream);
 
         myconnector.start((Map)prop);
-        System.out.println(MyConnector.class);
+        System.out.println(CSVSInkConnector.class);
 
     }
 }

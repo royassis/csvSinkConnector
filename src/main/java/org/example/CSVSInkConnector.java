@@ -11,9 +11,9 @@ import java.io.InputStream;
 import java.util.*;
 
 
-public class MyConnector extends SinkConnector {
+public class CSVSInkConnector extends SinkConnector {
 
-    private static final Logger logger = Logger.getLogger(MyConnector.class);
+    private static final Logger logger = Logger.getLogger(CSVSInkConnector.class);
     private CSVSinkConnectorConfig connectorConfig;
     private Map configProps;
     InputStream log4jProps = getClass().getClassLoader().getResourceAsStream("log4j.properties");

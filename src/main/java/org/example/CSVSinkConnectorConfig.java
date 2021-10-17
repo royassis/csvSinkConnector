@@ -12,18 +12,6 @@ public class CSVSinkConnectorConfig extends AbstractConfig
     }
     protected static ConfigDef configDef() {
         return new ConfigDef()
-                .define("bucket",
-                        ConfigDef.Type.STRING,
-                        ConfigDef.Importance.HIGH,
-                        "Name of the bucket to import objects from")
-                .define("prefix.whitelist",
-                        ConfigDef.Type.LIST,
-                        ConfigDef.Importance.HIGH,
-                        "Whitelist of object key prefixes")
-                .define("topic",
-                        ConfigDef.Type.STRING,
-                        ConfigDef.Importance.HIGH,
-                        "Name of Kafka topic to produce to")
                 .define("output.file",
                         ConfigDef.Type.STRING,
                         ConfigDef.Importance.HIGH,
