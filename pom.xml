@@ -130,20 +130,38 @@
       </configuration>
     </plugin>
     <plugin>
-      <artifactId>maven-assembly-plugin</artifactId>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
       <executions>
         <execution>
-          <phase>package</phase>
+          <id>copy-dependencies</id>
+          <phase>prepare-package</phase>
           <goals>
-            <goal>single</goal>
+            <goal>copy-dependencies</goal>
           </goals>
+          <configuration>
+            <outputDirectory>${project.build.directory}/classes/lib</outputDirectory>
+            <overWriteReleases>false</overWriteReleases>
+            <overWriteSnapshots>false</overWriteSnapshots>
+            <overWriteIfNewer>true</overWriteIfNewer>
+          </configuration>
         </execution>
       </executions>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
       <configuration>
-        <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-        <appendAssemblyId>false</appendAssemblyId>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <!-- <classpathPrefix>lib</classpathPrefix> -->
+            <!-- <mainClass>test.org.Cliente</mainClass> -->
+          </manifest>
+          <manifestEntries>
+            <Class-Path>lib/</Class-Path>
+          </manifestEntries>
+        </archive>
       </configuration>
     </plugin>
   </plugins>
