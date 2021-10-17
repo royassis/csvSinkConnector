@@ -6,7 +6,7 @@
 
   <groupId>org.example</groupId>
   <artifactId>csvSinkConnector</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 
   <name>csvSinkConnector</name>
   <!-- FIXME change it to the project's website -->
@@ -127,6 +127,23 @@
       <configuration>
         <source>8</source>
         <target>8</target>
+      </configuration>
+    </plugin>
+    <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>single</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+        <appendAssemblyId>false</appendAssemblyId>
       </configuration>
     </plugin>
   </plugins>
