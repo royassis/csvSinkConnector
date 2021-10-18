@@ -30,14 +30,19 @@ public class MySinkTask extends SinkTask {
     @Override
     public void put(Collection<SinkRecord> records) {
 
-//        Boolean shouldAppend = connectorConfig.getBoolean("append");
+        Boolean shouldAppend = connectorConfig.getBoolean("append");
         File outfile = new File(connectorConfig.getString("output.file"));
+        HashSet fileColumns = getColumnsFromCsv(outfile);
 
         try(FileWriter fw = new FileWriter(outfile, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
             for (SinkRecord sinkRecord : records){
+                if (shouldAppend && !getColumnsFromRecord(sinkRecord).containsAll(fileColumns)){
+                    System.out.println("Record schema does not match");
+                    System.exit(1);
+                }
                 String csvLine = kafkaRecordToCsvRecord(sinkRecord);
                 out.println(csvLine);
                 System.out.println(csvLine);
@@ -82,10 +87,15 @@ public class MySinkTask extends SinkTask {
         return set;
     }
 
-    public HashSet getColumnsFromCsv(File csvFile) throws FileNotFoundException {
+    public HashSet getColumnsFromCsv(File csvFile) {
 
         HashSet<String> set = new HashSet<>();
-        Scanner myReader = new Scanner(csvFile);
+        Scanner myReader = null;
+        try {
+            myReader = new Scanner(csvFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         String csvColums = myReader.nextLine();
         String[] csvCols = csvColums.split(",");
         for (String col : csvCols){
