@@ -15,6 +15,11 @@ public class CSVSinkConnectorConfig extends AbstractConfig
                 .define("output.file",
                         ConfigDef.Type.STRING,
                         ConfigDef.Importance.HIGH,
-                        "Name of sink file");
+                        "Name of sink file")
+                .define("append",
+                        ConfigDef.Type.BOOLEAN,
+                        false,
+                        ConfigDef.Importance.HIGH,
+                        "Append or overwrite");
     }
 }
